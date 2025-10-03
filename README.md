@@ -11,22 +11,22 @@ A comprehensive SEO toolkit for Laravel applications that provides meta tags, Op
 
 ## Features
 
-- 🏷️ **Meta Tags Management** - Title, description, keywords, author, robots
-- 📱 **Open Graph Support** - Complete Open Graph meta tags for social sharing
-- 🐦 **Twitter Cards** - Twitter Card meta tags for enhanced tweets
-- 📊 **JSON-LD Schema** - Structured data markup for search engines
-- 🔗 **Canonical URLs** - Prevent duplicate content issues
-- 🤖 **Robots.txt Generation** - Automatic robots.txt file generation
-- 🗺️ **XML Sitemap** - Dynamic XML sitemap generation
-- 🔍 **SEO Audit Middleware** - Real-time SEO issue detection
-- 📈 **SEO Dashboard** - Optional admin dashboard for SEO management
-- 🎨 **Blade Components** - Easy-to-use Blade components for templates
-- ⚡ **Artisan Commands** - Command-line tools for SEO management
-- 🗄️ **Database Integration** - Polymorphic SEO meta storage with HasSeo trait
-- ⚡ **Livewire Support** - Full Livewire compatibility with reactive components
-- 🎛️ **Filament Integration** - Complete Filament admin panel integration
-- 🔄 **Real-time Updates** - Live SEO management with instant previews
-- 📱 **Mobile Responsive** - Optimized for all device sizes
+- **Meta Tags Management** - Title, description, keywords, author, robots
+- **Open Graph Support** - Complete Open Graph meta tags for social sharing
+- **Twitter Cards** - Twitter Card meta tags for enhanced tweets
+- **JSON-LD Schema** - Structured data markup for search engines
+- **Canonical URLs** - Prevent duplicate content issues
+- **Robots.txt Generation** - Automatic robots.txt file generation
+- **XML Sitemap** - Dynamic XML sitemap generation
+- **SEO Audit Middleware** - Real-time SEO issue detection
+- **SEO Dashboard** - Optional admin dashboard for SEO management
+- **Blade Components** - Easy-to-use Blade components for templates
+- **Artisan Commands** - Command-line tools for SEO management
+- **Database Integration** - Polymorphic SEO meta storage with HasSeo trait
+- **Livewire Support** - Full Livewire compatibility with reactive components
+- **Filament Integration** - Complete Filament admin panel integration
+- **Real-time Updates** - Live SEO management with instant previews
+- **Mobile Responsive** - Optimized for all device sizes
 
 ## Installation
 
