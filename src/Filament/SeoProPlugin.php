@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @author mrdulal
+ * @package LaravelSeoPro
+ */
+
 namespace LaravelSeoPro\Filament;
 
 use Filament\PluginServiceProvider;

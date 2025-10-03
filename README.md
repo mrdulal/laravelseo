@@ -7,6 +7,8 @@
 [![Laravel](https://img.shields.io/badge/Laravel-9%2B-red.svg?style=flat-square)](https://laravel.com)
 [![Tests](https://img.shields.io/github/actions/workflow/status/laravel-seo-pro/seo-pro/tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/laravel-seo-pro/seo-pro/actions/workflows/tests.yml)
 
+**Created by [mrdulal](https://github.com/mrdulal)**
+
 A comprehensive SEO toolkit for Laravel applications that provides meta tags, Open Graph, Twitter Cards, JSON-LD schema, canonical URLs, robots.txt generation, XML sitemaps, and SEO auditing capabilities.
 
 ## Features

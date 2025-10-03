@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @author mrdulal
+ * @package LaravelSeoPro
+ */
+
 namespace LaravelSeoPro\Providers;
 
 use Illuminate\Support\ServiceProvider;

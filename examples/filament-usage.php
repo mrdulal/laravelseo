@@ -5,6 +5,9 @@
  * 
  * This example shows how to integrate Laravel SEO Pro with Filament
  * for comprehensive SEO management in your Laravel application.
+ * 
+ * @author mrdulal
+ * @package LaravelSeoPro
  */
 
 // 1. Install the package
