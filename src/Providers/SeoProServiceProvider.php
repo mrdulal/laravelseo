@@ -11,9 +11,10 @@ use LaravelSeoPro\Console\Commands\GenerateSitemapCommand;
 use LaravelSeoPro\Console\Commands\AttachSeoCommand;
 use LaravelSeoPro\Console\Commands\SeoAuditCommand;
 use LaravelSeoPro\Console\Commands\InstallSeoProCommand;
+use LaravelSeoPro\Console\Commands\InstallFilamentSeoCommand;
 use LaravelSeoPro\Livewire\SeoManager;
 use LaravelSeoPro\Livewire\Fields\SeoFields;
-use LaravelSeoPro\Filament\Resources\SeoMetaResource;
+use LaravelSeoPro\Filament\SeoProPlugin;
 use Filament\Facades\Filament;
 
 class SeoProServiceProvider extends ServiceProvider
@@ -56,6 +57,7 @@ class SeoProServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 InstallSeoProCommand::class,
+                InstallFilamentSeoCommand::class,
                 GenerateRobotsCommand::class,
                 GenerateSitemapCommand::class,
                 AttachSeoCommand::class,
@@ -69,8 +71,8 @@ class SeoProServiceProvider extends ServiceProvider
         // Register Livewire components
         $this->registerLivewireComponents();
 
-        // Register Filament resources
-        $this->registerFilamentResources();
+        // Register Filament plugin
+        $this->registerFilamentPlugin();
 
         // Register routes
         $this->registerRoutes();
@@ -84,13 +86,11 @@ class SeoProServiceProvider extends ServiceProvider
         }
     }
 
-    protected function registerFilamentResources()
+    protected function registerFilamentPlugin()
     {
         if (class_exists(\Filament\Facades\Filament::class)) {
             Filament::serving(function () {
-                Filament::registerResources([
-                    SeoMetaResource::class,
-                ]);
+                Filament::registerPlugin(new SeoProPlugin());
             });
         }
     }
