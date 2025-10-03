@@ -12,7 +12,6 @@ jobs:
     strategy:
       matrix:
         php: [8.1, 8.2, 8.3]
-        laravel: [9.*, 10.*]
 
     steps:
     - uses: actions/checkout@v4
@@ -22,10 +21,6 @@ jobs:
       with:
         php-version: ${{ matrix.php }}
         extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
-        coverage: none
-
-    - name: Setup Problem Matchers
-      run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
 
     - name: Get composer cache directory
       id: composer-cache
@@ -35,8 +30,8 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ${{ steps.composer-cache.outputs.dir }}
-        key: composer-${{ matrix.php }}-${{ matrix.laravel }}-${{ hashFiles('composer.lock') }}
-        restore-keys: composer-${{ matrix.php }}-${{ matrix.laravel }}-
+        key: composer-${{ matrix.php }}-${{ hashFiles('composer.lock') }}
+        restore-keys: composer-${{ matrix.php }}-
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-suggest
