@@ -7,6 +7,7 @@ use LaravelSeoPro\Filament\Resources\SeoMetaResource;
 use LaravelSeoPro\Filament\Pages\SeoDashboard;
 use LaravelSeoPro\Filament\Pages\SitemapManager;
 use LaravelSeoPro\Filament\Pages\RobotsManager;
+use LaravelSeoPro\Filament\Pages\SeoAuditDashboard;
 use LaravelSeoPro\Filament\Widgets\SeoOverviewWidget;
 use LaravelSeoPro\Filament\Widgets\SeoAuditWidget;
 use LaravelSeoPro\Filament\Widgets\SeoPerformanceWidget;
@@ -22,6 +23,7 @@ class SeoProPlugin extends PluginServiceProvider
         SeoDashboard::class,
         SitemapManager::class,
         RobotsManager::class,
+        SeoAuditDashboard::class,
     ];
 
     protected array $widgets = [

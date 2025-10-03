@@ -15,6 +15,7 @@ use LaravelSeoPro\Console\Commands\InstallFilamentSeoCommand;
 use LaravelSeoPro\Livewire\SeoManager;
 use LaravelSeoPro\Livewire\Fields\SeoFields;
 use LaravelSeoPro\Filament\SeoProPlugin;
+use LaravelSeoPro\Providers\SeoBladeServiceProvider;
 use Filament\Facades\Filament;
 
 class SeoProServiceProvider extends ServiceProvider
@@ -74,6 +75,9 @@ class SeoProServiceProvider extends ServiceProvider
         // Register Filament plugin
         $this->registerFilamentPlugin();
 
+        // Register Blade directives
+        $this->registerBladeDirectives();
+
         // Register routes
         $this->registerRoutes();
     }
@@ -92,6 +96,13 @@ class SeoProServiceProvider extends ServiceProvider
             Filament::serving(function () {
                 Filament::registerPlugin(new SeoProPlugin());
             });
+        }
+    }
+
+    protected function registerBladeDirectives()
+    {
+        if (class_exists(\Illuminate\Support\Facades\Blade::class)) {
+            $this->app->register(SeoBladeServiceProvider::class);
         }
     }
 
