@@ -3,21 +3,10 @@
 namespace LaravelSeoPro\Tests\Unit;
 
 use LaravelSeoPro\Services\SeoService;
-use Orchestra\Testbench\TestCase;
+use LaravelSeoPro\Tests\TestCase;
 
 class SeoServiceTest extends TestCase
 {
-    protected function getPackageProviders($app)
-    {
-        return [
-            \LaravelSeoPro\Providers\SeoProServiceProvider::class,
-        ];
-    }
-
-    protected function getEnvironmentSetUp($app)
-    {
-        $app['config']->set('seo', require __DIR__ . '/../../config/seo.php');
-    }
 
     public function test_can_set_title()
     {

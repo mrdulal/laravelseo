@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class SeoMeta extends Model
 {
+    protected $table = 'seo_meta';
+    
     protected $fillable = [
         'seoable_type',
         'seoable_id',

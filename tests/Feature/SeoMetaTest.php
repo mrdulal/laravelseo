@@ -5,29 +5,12 @@ namespace LaravelSeoPro\Tests\Feature;
 use LaravelSeoPro\Models\SeoMeta;
 use LaravelSeoPro\Traits\HasSeo;
 use Illuminate\Database\Eloquent\Model;
-use Orchestra\Testbench\TestCase;
+use LaravelSeoPro\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SeoMetaTest extends TestCase
 {
     use RefreshDatabase;
-
-    protected function getPackageProviders($app)
-    {
-        return [
-            \LaravelSeoPro\Providers\SeoProServiceProvider::class,
-        ];
-    }
-
-    protected function getEnvironmentSetUp($app)
-    {
-        $app['config']->set('database.default', 'testing');
-        $app['config']->set('database.connections.testing', [
-            'driver' => 'sqlite',
-            'database' => ':memory:',
-        ]);
-        $app['config']->set('seo', require __DIR__ . '/../../config/seo.php');
-    }
 
     public function test_can_create_seo_meta()
     {

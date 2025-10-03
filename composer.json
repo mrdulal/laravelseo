@@ -37,6 +37,10 @@
             "LaravelSeoPro\\Tests\\": "tests/"
         }
     },
+    "scripts": {
+        "test": "phpunit",
+        "test-coverage": "phpunit --coverage-html coverage"
+    },
     "extra": {
         "laravel": {
             "providers": [

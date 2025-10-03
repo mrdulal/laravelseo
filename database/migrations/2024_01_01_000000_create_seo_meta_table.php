@@ -43,7 +43,7 @@ return new class extends Migration
             
             $table->timestamps();
             
-            $table->index(['seoable_type', 'seoable_id']);
+            $table->index(['seoable_type', 'seoable_id'], 'seo_meta_seoable_index');
         });
     }
 
