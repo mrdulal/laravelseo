@@ -1,5 +1,12 @@
 # Laravel SEO Pro
 
+[![Packagist](https://img.shields.io/packagist/v/laravel-seo-pro/seo-pro.svg?style=flat-square)](https://packagist.org/packages/laravel-seo-pro/seo-pro)
+[![Downloads](https://img.shields.io/packagist/dt/laravel-seo-pro/seo-pro.svg?style=flat-square)](https://packagist.org/packages/laravel-seo-pro/seo-pro)
+[![License](https://img.shields.io/packagist/l/laravel-seo-pro/seo-pro.svg?style=flat-square)](https://packagist.org/packages/laravel-seo-pro/seo-pro)
+[![PHP Version](https://img.shields.io/packagist/php-v/laravel-seo-pro/seo-pro.svg?style=flat-square)](https://packagist.org/packages/laravel-seo-pro/seo-pro)
+[![Laravel](https://img.shields.io/badge/Laravel-9%2B-red.svg?style=flat-square)](https://laravel.com)
+[![Tests](https://img.shields.io/github/workflow/status/laravel-seo-pro/seo-pro/tests?label=tests&style=flat-square)](https://github.com/laravel-seo-pro/seo-pro/actions)
+
 A comprehensive SEO toolkit for Laravel applications that provides meta tags, Open Graph, Twitter Cards, JSON-LD schema, canonical URLs, robots.txt generation, XML sitemaps, and SEO auditing capabilities.
 
 ## Features
@@ -102,12 +109,53 @@ composer require filament/filament
 
 The package configuration is located in `config/seo.php`. You can customize:
 
-- Enable/disable specific features
-- Set default meta values
-- Configure Open Graph and Twitter Card defaults
-- Set up robots.txt rules
-- Configure sitemap generation
-- Set up SEO audit rules
+- **Feature toggles** - Enable/disable specific SEO components
+- **Default values** - Set default meta tags and social media data
+- **Open Graph settings** - Configure Open Graph defaults
+- **Twitter Card settings** - Configure Twitter Card defaults
+- **Robots.txt rules** - Set up search engine directives
+- **Sitemap configuration** - Configure XML sitemap generation
+- **SEO audit rules** - Set up automated SEO analysis
+
+### Configuration Example
+
+```php
+// config/seo.php
+return [
+    'features' => [
+        'meta_tags' => true,
+        'open_graph' => true,
+        'twitter_cards' => true,
+        'json_ld' => true,
+        'canonical_urls' => true,
+        'robots_meta' => true,
+        'robots_txt' => true,
+        'sitemap' => true,
+        'audit_middleware' => true,
+        'dashboard' => false,
+    ],
+    
+    'defaults' => [
+        'title' => 'My Website',
+        'description' => 'Welcome to my website',
+        'keywords' => 'website, laravel, php',
+        'author' => 'My Company',
+        'robots' => 'index, follow',
+    ],
+    
+    'open_graph' => [
+        'type' => 'website',
+        'site_name' => 'My Website',
+        'locale' => 'en_US',
+    ],
+    
+    'twitter' => [
+        'card' => 'summary_large_image',
+        'site' => '@mywebsite',
+        'creator' => '@mywebsite',
+    ],
+];
+```
 
 ## Basic Usage
 
@@ -311,10 +359,58 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-## Support
+## 🆘 Support & Community
 
-If you discover any issues or have questions, please open an issue on GitHub.
+### Getting Help
 
-## Changelog
+- **📚 Documentation** - Comprehensive guides and examples
+- **💬 GitHub Discussions** - Questions and general discussion
+- **🎯 Discord Community** - Real-time chat and support
+- **🐛 GitHub Issues** - Bug reports and feature requests
+- **❓ FAQ** - Common questions and answers
+
+### Community Links
+
+- [📖 Documentation](https://laravelseopro.com/docs)
+- [💬 Discord](https://discord.gg/laravel-seo-pro)
+- [🐦 Twitter](https://twitter.com/laravelseopro)
+- [📧 Email](mailto:support@laravelseopro.com)
+
+### Contributing
+
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+- [🤝 Contributing Guide](CONTRIBUTING.md)
+- [📋 Code of Conduct](CODE_OF_CONDUCT.md)
+- [🔒 Security Policy](.github/SECURITY.md)
+
+## 📊 Project Status
+
+[![GitHub stars](https://img.shields.io/github/stars/laravel-seo-pro/seo-pro?style=social)](https://github.com/laravel-seo-pro/seo-pro)
+[![GitHub forks](https://img.shields.io/github/forks/laravel-seo-pro/seo-pro?style=social)](https://github.com/laravel-seo-pro/seo-pro)
+[![GitHub watchers](https://img.shields.io/github/watchers/laravel-seo-pro/seo-pro?style=social)](https://github.com/laravel-seo-pro/seo-pro)
+
+## 📈 Changelog
 
 Please see [CHANGELOG.md](CHANGELOG.md) for more information on what has changed recently.
+
+## 🏆 Acknowledgments
+
+- **Laravel Community** - For the amazing framework
+- **Contributors** - Who help improve this package
+- **Users** - Who provide feedback and suggestions
+- **Open Source** - For making this possible
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+<div align="center">
+
+**Made with ❤️ by the Laravel SEO Pro Team**
+
+[⭐ Star us on GitHub](https://github.com/laravel-seo-pro/seo-pro) • [📖 Read the docs](https://laravelseopro.com/docs) • [💬 Join our Discord](https://discord.gg/laravel-seo-pro)
+
+</div>

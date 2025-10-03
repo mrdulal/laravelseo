@@ -1,0 +1,47 @@
+{
+  "name": "laravel-seo-pro",
+  "version": "1.0.0",
+  "description": "A comprehensive SEO toolkit for Laravel applications",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run production",
+    "dev": "npm run development",
+    "development": "mix",
+    "watch": "mix watch",
+    "watch-poll": "mix watch -- --watch-options-poll=1000",
+    "hot": "mix watch --hot",
+    "production": "mix --production",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "laravel",
+    "seo",
+    "meta-tags",
+    "open-graph",
+    "twitter-cards",
+    "json-ld",
+    "robots-txt",
+    "sitemap",
+    "livewire",
+    "filament"
+  ],
+  "author": "Laravel SEO Pro Team",
+  "license": "MIT",
+  "devDependencies": {
+    "laravel-mix": "^6.0.49",
+    "resolve-url-loader": "^5.0.0",
+    "sass": "^1.32.11",
+    "sass-loader": "^12.0.0"
+  },
+  "dependencies": {
+    "alpinejs": "^3.13.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laravel-seo-pro/seo-pro.git"
+  },
+  "bugs": {
+    "url": "https://github.com/laravel-seo-pro/seo-pro/issues"
+  },
+  "homepage": "https://github.com/laravel-seo-pro/seo-pro#readme"
+}
