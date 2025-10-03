@@ -8,6 +8,8 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
     - uses: actions/checkout@v4
@@ -36,11 +38,26 @@ jobs:
       run: ./vendor/bin/phpunit
 
     - name: Create GitHub Release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: softprops/action-gh-release@v1
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
+        tag_name: ${{ github.ref_name }}
+        name: Release ${{ github.ref_name }}
+        body: |
+          🚀 **Laravel SEO Pro ${{ github.ref_name }}**
+          
+          **Major Features:**
+          - Complete Filament admin panel integration
+          - SEO Dashboard, Sitemap Manager, Robots Manager
+          - Advanced SEO features: breadcrumbs, scoring, optimization
+          - Enhanced Livewire support with reactive components
+          - Improved Blade components and directives
+          
+          **Technical Improvements:**
+          - Modern PHP 8+ features and type safety
+          - Fixed GitHub Actions workflows for Laravel packages
+          - Better error handling and caching system
+          - Comprehensive documentation and examples
+          
+          **Created by [mrdulal](https://github.com/mrdulal)**
         draft: false
         prerelease: false
