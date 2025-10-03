@@ -16,6 +16,10 @@ A comprehensive SEO toolkit for Laravel applications that provides meta tags, Op
 - 🎨 **Blade Components** - Easy-to-use Blade components for templates
 - ⚡ **Artisan Commands** - Command-line tools for SEO management
 - 🗄️ **Database Integration** - Polymorphic SEO meta storage with HasSeo trait
+- ⚡ **Livewire Support** - Full Livewire compatibility with reactive components
+- 🎛️ **Filament Integration** - Complete Filament admin panel integration
+- 🔄 **Real-time Updates** - Live SEO management with instant previews
+- 📱 **Mobile Responsive** - Optimized for all device sizes
 
 ## Installation
 
@@ -97,16 +101,37 @@ Include the SEO components in your layout:
 <!DOCTYPE html>
 <html>
 <head>
-    <x-seo.meta />
-    <x-seo.og />
-    <x-seo.twitter />
-    <x-seo.json-ld />
+    <x-seo.meta :model="$post" />
+    <x-seo.og :model="$post" />
+    <x-seo.twitter :model="$post" />
+    <x-seo.json-ld :model="$post" />
 </head>
 <body>
     <!-- Your content -->
 </body>
 </html>
 ```
+
+### Using Livewire Components
+
+For dynamic SEO management with Livewire:
+
+```blade
+<!-- Full SEO Manager -->
+<livewire:seo-manager :model="$post" />
+
+<!-- Simple SEO Fields -->
+<livewire:seo-fields :model="$post" />
+```
+
+### Using with Filament
+
+The package automatically registers Filament resources for SEO management:
+
+1. **SEO Meta Resource** - Manage all SEO data through Filament admin panel
+2. **Automatic Integration** - Works with any model that uses the HasSeo trait
+3. **Bulk Operations** - Manage multiple SEO records at once
+4. **Advanced Filtering** - Filter and search SEO data efficiently
 
 ### Using the HasSeo Trait
 

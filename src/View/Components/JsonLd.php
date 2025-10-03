@@ -8,9 +8,16 @@ use LaravelSeoPro\Facades\Seo;
 class JsonLd extends Component
 {
     public $jsonLd;
+    public $model;
 
-    public function __construct()
+    public function __construct($model = null)
     {
+        $this->model = $model;
+        
+        if ($model && method_exists($model, 'getSeoMeta')) {
+            Seo::loadFromModel($model);
+        }
+        
         $this->jsonLd = Seo::getJsonLd();
     }
 

@@ -8,9 +8,16 @@ use LaravelSeoPro\Facades\Seo;
 class MetaTags extends Component
 {
     public $meta;
+    public $model;
 
-    public function __construct()
+    public function __construct($model = null)
     {
+        $this->model = $model;
+        
+        if ($model && method_exists($model, 'getSeoMeta')) {
+            Seo::loadFromModel($model);
+        }
+        
         $this->meta = Seo::getAllMeta()['meta'];
     }
 

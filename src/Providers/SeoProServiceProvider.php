@@ -10,6 +10,10 @@ use LaravelSeoPro\Console\Commands\GenerateRobotsCommand;
 use LaravelSeoPro\Console\Commands\GenerateSitemapCommand;
 use LaravelSeoPro\Console\Commands\AttachSeoCommand;
 use LaravelSeoPro\Console\Commands\SeoAuditCommand;
+use LaravelSeoPro\Livewire\SeoManager;
+use LaravelSeoPro\Livewire\Fields\SeoFields;
+use LaravelSeoPro\Filament\Resources\SeoMetaResource;
+use Filament\Facades\Filament;
 
 class SeoProServiceProvider extends ServiceProvider
 {
@@ -60,8 +64,33 @@ class SeoProServiceProvider extends ServiceProvider
         // Register middleware
         $this->app['router']->aliasMiddleware('seo.audit', SeoAuditMiddleware::class);
 
+        // Register Livewire components
+        $this->registerLivewireComponents();
+
+        // Register Filament resources
+        $this->registerFilamentResources();
+
         // Register routes
         $this->registerRoutes();
+    }
+
+    protected function registerLivewireComponents()
+    {
+        if (class_exists(\Livewire\Livewire::class)) {
+            \Livewire\Livewire::component('seo-manager', SeoManager::class);
+            \Livewire\Livewire::component('seo-fields', SeoFields::class);
+        }
+    }
+
+    protected function registerFilamentResources()
+    {
+        if (class_exists(\Filament\Facades\Filament::class)) {
+            Filament::serving(function () {
+                Filament::registerResources([
+                    SeoMetaResource::class,
+                ]);
+            });
+        }
     }
 
     protected function registerRoutes()
