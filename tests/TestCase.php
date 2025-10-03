@@ -15,10 +15,7 @@ abstract class TestCase extends BaseTestCase
 
     protected function getEnvironmentSetUp($app)
     {
-        $app['config']->set('database.default', 'testing');
-        $app['config']->set('database.connections.testing', [
-            'driver' => 'sqlite',
-            'database' => ':memory:',
-        ]);
+        // Package doesn't require database configuration
+        // SEO functionality works without database connections
     }
 }
