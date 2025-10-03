@@ -1,11 +1,15 @@
 # Laravel SEO Pro
 
-[![Packagist](https://img.shields.io/packagist/v/laravel-seo-pro/seo-pro.svg?style=flat-square)](https://packagist.org/packages/laravel-seo-pro/seo-pro)
-[![Downloads](https://img.shields.io/packagist/dt/laravel-seo-pro/seo-pro.svg?style=flat-square)](https://packagist.org/packages/laravel-seo-pro/seo-pro)
-[![License](https://img.shields.io/packagist/l/laravel-seo-pro/seo-pro.svg?style=flat-square)](https://packagist.org/packages/laravel-seo-pro/seo-pro)
-[![PHP Version](https://img.shields.io/packagist/php-v/laravel-seo-pro/seo-pro.svg?style=flat-square)](https://packagist.org/packages/laravel-seo-pro/seo-pro)
+[![Latest Version](https://img.shields.io/github/v/release/mrdulal/laravelseo?style=flat-square)](https://github.com/mrdulal/laravelseo/releases)
+[![Downloads](https://img.shields.io/github/downloads/mrdulal/laravelseo/total?style=flat-square)](https://github.com/mrdulal/laravelseo)
+[![License](https://img.shields.io/github/license/mrdulal/laravelseo?style=flat-square)](https://github.com/mrdulal/laravelseo/blob/main/LICENSE)
+[![PHP Version](https://img.shields.io/badge/PHP-8.1%2B-blue.svg?style=flat-square)](https://php.net)
 [![Laravel](https://img.shields.io/badge/Laravel-9%2B-red.svg?style=flat-square)](https://laravel.com)
-[![Tests](https://img.shields.io/github/actions/workflow/status/laravel-seo-pro/seo-pro/tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/laravel-seo-pro/seo-pro/actions/workflows/tests.yml)
+[![Tests](https://img.shields.io/github/actions/workflow/status/mrdulal/laravelseo/tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/mrdulal/laravelseo/actions/workflows/tests.yml)
+[![Stars](https://img.shields.io/github/stars/mrdulal/laravelseo?style=flat-square)](https://github.com/mrdulal/laravelseo)
+[![Forks](https://img.shields.io/github/forks/mrdulal/laravelseo?style=flat-square)](https://github.com/mrdulal/laravelseo)
+[![Issues](https://img.shields.io/github/issues/mrdulal/laravelseo?style=flat-square)](https://github.com/mrdulal/laravelseo/issues)
+[![Pull Requests](https://img.shields.io/github/issues-pr/mrdulal/laravelseo?style=flat-square)](https://github.com/mrdulal/laravelseo/pulls)
 
 **Created by [mrdulal](https://github.com/mrdulal)**
 
