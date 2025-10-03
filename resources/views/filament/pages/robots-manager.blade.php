@@ -54,7 +54,7 @@
                 Current Robots.txt Content
             </h3>
             <div class="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
-                <pre>{{ $this->getRobotsContent() }}</pre>
+                <pre>{{ $robotsContent }}</pre>
             </div>
         </div>
         
@@ -78,13 +78,5 @@
 </x-filament-panels::page>
 
 @php
-    public function getRobotsContent(): string
-    {
-        try {
-            $seoService = app(\LaravelSeoPro\Services\SeoService::class);
-            return $seoService->generateRobots();
-        } catch (\Exception $e) {
-            return "Error generating robots.txt content: " . $e->getMessage();
-        }
-    }
+    $robotsContent = app(\LaravelSeoPro\Services\SeoService::class)->generateRobots();
 @endphp
