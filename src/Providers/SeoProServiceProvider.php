@@ -5,11 +5,15 @@ namespace LaravelSeoPro\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 use LaravelSeoPro\Services\SeoService;
+use LaravelSeoPro\Services\SeoAnalyticsService;
+use LaravelSeoPro\Services\SeoCacheService;
+use LaravelSeoPro\Services\SeoMonitoringService;
 use LaravelSeoPro\Http\Middleware\SeoAuditMiddleware;
 use LaravelSeoPro\Console\Commands\GenerateRobotsCommand;
 use LaravelSeoPro\Console\Commands\GenerateSitemapCommand;
 use LaravelSeoPro\Console\Commands\AttachSeoCommand;
 use LaravelSeoPro\Console\Commands\SeoAuditCommand;
+use LaravelSeoPro\Console\Commands\OptimizeSeoCommand;
 use LaravelSeoPro\Console\Commands\InstallSeoProCommand;
 use LaravelSeoPro\Console\Commands\InstallFilamentSeoCommand;
 use LaravelSeoPro\Livewire\SeoManager;
@@ -25,10 +29,18 @@ class SeoProServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../../config/seo.php', 'seo');
 
         $this->app->singleton('seo', function ($app) {
-            return new SeoService();
+            return new SeoService(
+                $app->make(SeoAnalyticsService::class),
+                $app->make(SeoCacheService::class)
+            );
         });
 
         $this->app->alias('seo', SeoService::class);
+        
+        // Register additional services
+        $this->app->singleton(SeoAnalyticsService::class);
+        $this->app->singleton(SeoCacheService::class);
+        $this->app->singleton(SeoMonitoringService::class);
     }
 
     public function boot()
@@ -63,6 +75,7 @@ class SeoProServiceProvider extends ServiceProvider
                 GenerateSitemapCommand::class,
                 AttachSeoCommand::class,
                 SeoAuditCommand::class,
+                OptimizeSeoCommand::class,
             ]);
         }
 

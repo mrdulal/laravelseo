@@ -367,8 +367,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-**Made with ❤️ by the Laravel SEO Pro Team**
+**Made with ❤️ by Mrdulal**
 
-[⭐ Star us on GitHub](https://github.com/laravel-seo-pro/seo-pro) • [📖 Read the docs](https://laravelseopro.com/docs) • [💬 Join our Discord](https://discord.gg/laravel-seo-pro)
+[⭐ Star us on GitHub](https://github.com/mrdulal/laravelseo)
 
 </div>

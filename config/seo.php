@@ -147,4 +147,62 @@ return [
         'route' => '/seo-dashboard',
         'middleware' => ['web', 'auth'],
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Advanced SEO Features
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for advanced SEO features
+    |
+    */
+    'advanced' => [
+        'breadcrumbs' => true,
+        'monitoring' => true,
+        'analytics' => true,
+        'caching' => true,
+        'optimization' => true,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | News Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for news sitemap generation
+    |
+    */
+    'news' => [
+        'publication_name' => 'Your Site',
+        'language' => 'en',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cache Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for SEO caching
+    |
+    */
+    'cache' => [
+        'enabled' => true,
+        'ttl' => 3600, // 1 hour
+        'prefix' => 'seo_pro_',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Performance Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for performance optimization
+    |
+    */
+    'performance' => [
+        'lazy_load' => true,
+        'minify_html' => false,
+        'compress_images' => false,
+        'cdn_enabled' => false,
+    ],
 ];

@@ -5,18 +5,31 @@ namespace LaravelSeoPro\Services;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use LaravelSeoPro\Models\SeoMeta;
+use LaravelSeoPro\Contracts\SeoServiceInterface;
+use LaravelSeoPro\Services\SeoAnalyticsService;
+use LaravelSeoPro\Services\SeoCacheService;
 
-class SeoService
+class SeoService implements SeoServiceInterface
 {
     protected array $meta = [];
     protected array $openGraph = [];
     protected array $twitter = [];
     protected array $jsonLd = [];
     protected array $additionalMeta = [];
+    protected array $breadcrumbs = [];
+    protected ?SeoAnalyticsService $analytics = null;
+    protected ?SeoCacheService $cache = null;
+    protected bool $isOptimized = false;
 
-    public function __construct()
-    {
+    public function __construct(
+        ?SeoAnalyticsService $analytics = null,
+        ?SeoCacheService $cache = null
+    ) {
+        $this->analytics = $analytics ?? app(SeoAnalyticsService::class);
+        $this->cache = $cache ?? app(SeoCacheService::class);
         $this->reset();
     }
 
@@ -430,5 +443,294 @@ class SeoService
         }
 
         return '<script type="application/ld+json">' . json_encode($this->jsonLd, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . '</script>';
+    }
+
+    /**
+     * Add breadcrumb to SEO data
+     */
+    public function addBreadcrumb(string $name, string $url, ?int $position = null): self
+    {
+        $position = $position ?? count($this->breadcrumbs) + 1;
+        
+        $this->breadcrumbs[] = [
+            '@type' => 'ListItem',
+            'position' => $position,
+            'name' => $name,
+            'item' => $url,
+        ];
+
+        return $this;
+    }
+
+    /**
+     * Set breadcrumbs array
+     */
+    public function setBreadcrumbs(array $breadcrumbs): self
+    {
+        $this->breadcrumbs = $breadcrumbs;
+        return $this;
+    }
+
+    /**
+     * Get breadcrumbs
+     */
+    public function getBreadcrumbs(): array
+    {
+        return $this->breadcrumbs;
+    }
+
+    /**
+     * Render breadcrumbs as JSON-LD
+     */
+    public function renderBreadcrumbs(): string
+    {
+        if (empty($this->breadcrumbs)) {
+            return '';
+        }
+
+        $breadcrumbSchema = [
+            '@context' => 'https://schema.org',
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => $this->breadcrumbs,
+        ];
+
+        return '<script type="application/ld+json">' . json_encode($breadcrumbSchema, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . '</script>';
+    }
+
+    /**
+     * Optimize SEO data for better performance
+     */
+    public function optimize(): self
+    {
+        if ($this->isOptimized) {
+            return $this;
+        }
+
+        // Optimize title
+        if (!empty($this->meta['title'])) {
+            $this->meta['title'] = $this->optimizeTitle($this->meta['title']);
+        }
+
+        // Optimize description
+        if (!empty($this->meta['description'])) {
+            $this->meta['description'] = $this->optimizeDescription($this->meta['description']);
+        }
+
+        // Optimize keywords
+        if (!empty($this->meta['keywords'])) {
+            $this->meta['keywords'] = $this->optimizeKeywords($this->meta['keywords']);
+        }
+
+        // Ensure Open Graph data is complete
+        $this->ensureOpenGraphCompleteness();
+
+        // Ensure Twitter Card data is complete
+        $this->ensureTwitterCardCompleteness();
+
+        $this->isOptimized = true;
+        $this->analytics->trackSeoEvent('seo_optimized', $this->getAllMeta());
+
+        return $this;
+    }
+
+    /**
+     * Get SEO score
+     */
+    public function getSeoScore(): int
+    {
+        $cacheKey = $this->cache->getSeoScoreCacheKey(request()->url());
+        
+        return $this->cache->remember($cacheKey, 1800, function () {
+            return $this->analytics->getSeoScore($this->getAllMeta());
+        });
+    }
+
+    /**
+     * Get SEO recommendations
+     */
+    public function getRecommendations(): array
+    {
+        return $this->analytics->getRecommendations($this->getAllMeta());
+    }
+
+    /**
+     * Generate advanced sitemap with images and news
+     */
+    public function generateAdvancedSitemap(): string
+    {
+        $config = config('seo.sitemap');
+        $urls = $config['urls'] ?? [];
+
+        // Add URLs from configured models with enhanced data
+        foreach ($config['models'] as $modelClass) {
+            if (class_exists($modelClass)) {
+                $model = new $modelClass;
+                $items = $model->all();
+
+                foreach ($items as $item) {
+                    if (method_exists($item, 'getSeoUrl')) {
+                        $urlData = [
+                            'url' => $item->getSeoUrl(),
+                            'lastmod' => $item->updated_at?->format('Y-m-d\TH:i:s\Z'),
+                            'priority' => $config['priority'],
+                            'changefreq' => $config['changefreq'],
+                        ];
+
+                        // Add images if available
+                        if (method_exists($item, 'getSeoImages')) {
+                            $urlData['images'] = $item->getSeoImages();
+                        }
+
+                        // Add news data if available
+                        if (method_exists($item, 'getSeoNewsData')) {
+                            $urlData['news'] = $item->getSeoNewsData();
+                        }
+
+                        $urls[] = $urlData;
+                    }
+                }
+            }
+        }
+
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"';
+        $xml .= ' xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"';
+        $xml .= ' xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">' . "\n";
+
+        foreach ($urls as $url) {
+            $xml .= "  <url>\n";
+            $xml .= "    <loc>" . htmlspecialchars($url['url']) . "</loc>\n";
+            
+            if (isset($url['lastmod'])) {
+                $xml .= "    <lastmod>" . $url['lastmod'] . "</lastmod>\n";
+            }
+            
+            if (isset($url['priority'])) {
+                $xml .= "    <priority>" . $url['priority'] . "</priority>\n";
+            }
+            
+            if (isset($url['changefreq'])) {
+                $xml .= "    <changefreq>" . $url['changefreq'] . "</changefreq>\n";
+            }
+
+            // Add images
+            if (isset($url['images']) && is_array($url['images'])) {
+                foreach ($url['images'] as $image) {
+                    $xml .= "    <image:image>\n";
+                    $xml .= "      <image:loc>" . htmlspecialchars($image['url']) . "</image:loc>\n";
+                    if (isset($image['title'])) {
+                        $xml .= "      <image:title>" . htmlspecialchars($image['title']) . "</image:title>\n";
+                    }
+                    if (isset($image['caption'])) {
+                        $xml .= "      <image:caption>" . htmlspecialchars($image['caption']) . "</image:caption>\n";
+                    }
+                    $xml .= "    </image:image>\n";
+                }
+            }
+
+            // Add news data
+            if (isset($url['news']) && is_array($url['news'])) {
+                $xml .= "    <news:news>\n";
+                $xml .= "      <news:publication>\n";
+                $xml .= "        <news:name>" . htmlspecialchars($url['news']['publication_name']) . "</news:name>\n";
+                $xml .= "        <news:language>" . htmlspecialchars($url['news']['language']) . "</news:language>\n";
+                $xml .= "      </news:publication>\n";
+                $xml .= "      <news:publication_date>" . $url['news']['publication_date'] . "</news:publication_date>\n";
+                $xml .= "      <news:title>" . htmlspecialchars($url['news']['title']) . "</news:title>\n";
+                $xml .= "    </news:news>\n";
+            }
+            
+            $xml .= "  </url>\n";
+        }
+
+        $xml .= '</urlset>';
+
+        return $xml;
+    }
+
+    /**
+     * Optimize title for SEO
+     */
+    protected function optimizeTitle(string $title): string
+    {
+        // Remove extra whitespace
+        $title = trim(preg_replace('/\s+/', ' ', $title));
+        
+        // Ensure it's not too long
+        if (strlen($title) > 60) {
+            $title = substr($title, 0, 57) . '...';
+        }
+
+        return $title;
+    }
+
+    /**
+     * Optimize description for SEO
+     */
+    protected function optimizeDescription(string $description): string
+    {
+        // Remove extra whitespace
+        $description = trim(preg_replace('/\s+/', ' ', $description));
+        
+        // Ensure it's not too long
+        if (strlen($description) > 160) {
+            $description = substr($description, 0, 157) . '...';
+        }
+
+        return $description;
+    }
+
+    /**
+     * Optimize keywords for SEO
+     */
+    protected function optimizeKeywords(string $keywords): string
+    {
+        // Convert to array, remove duplicates, and rejoin
+        $keywordArray = array_unique(array_map('trim', explode(',', $keywords)));
+        
+        // Limit to 10 keywords max
+        $keywordArray = array_slice($keywordArray, 0, 10);
+        
+        return implode(', ', $keywordArray);
+    }
+
+    /**
+     * Ensure Open Graph data is complete
+     */
+    protected function ensureOpenGraphCompleteness(): void
+    {
+        if (empty($this->openGraph['og:title']) && !empty($this->meta['title'])) {
+            $this->openGraph['og:title'] = $this->meta['title'];
+        }
+
+        if (empty($this->openGraph['og:description']) && !empty($this->meta['description'])) {
+            $this->openGraph['og:description'] = $this->meta['description'];
+        }
+
+        if (empty($this->openGraph['og:url'])) {
+            $this->openGraph['og:url'] = $this->getCanonicalUrl();
+        }
+
+        if (empty($this->openGraph['og:type'])) {
+            $this->openGraph['og:type'] = config('seo.open_graph.type', 'website');
+        }
+    }
+
+    /**
+     * Ensure Twitter Card data is complete
+     */
+    protected function ensureTwitterCardCompleteness(): void
+    {
+        if (empty($this->twitter['twitter:title']) && !empty($this->meta['title'])) {
+            $this->twitter['twitter:title'] = $this->meta['title'];
+        }
+
+        if (empty($this->twitter['twitter:description']) && !empty($this->meta['description'])) {
+            $this->twitter['twitter:description'] = $this->meta['description'];
+        }
+
+        if (empty($this->twitter['twitter:card'])) {
+            $this->twitter['twitter:card'] = config('seo.twitter.card', 'summary_large_image');
+        }
     }
 }
