@@ -43,10 +43,3 @@ jobs:
 
     - name: Execute tests
       run: ./vendor/bin/phpunit
-
-    - name: Upload coverage to Codecov
-      if: matrix.php == '8.3' && matrix.laravel == '10.*'
-      uses: codecov/codecov-action@v3
-      with:
-        file: ./coverage.xml
-        fail_ci_if_error: true
