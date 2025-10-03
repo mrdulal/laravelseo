@@ -16,7 +16,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: 8.3
-        extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
+        extensions: dom, curl, libxml, mbstring, zip, pcntl, bcmath, soap, intl, gd, exif, iconv
 
     - name: Get composer cache directory
       id: composer-cache
@@ -33,7 +33,7 @@ jobs:
       run: composer install --prefer-dist --no-progress --no-suggest
 
     - name: Run tests
-      run: php artisan test
+      run: ./vendor/bin/phpunit
 
     - name: Create GitHub Release
       uses: actions/create-release@v1

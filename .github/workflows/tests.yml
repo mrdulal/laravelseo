@@ -12,7 +12,6 @@ jobs:
     strategy:
       matrix:
         php: [8.1, 8.2, 8.3]
-        laravel: [9.*, 10.*, 11.*, 12.*]
 
     steps:
     - uses: actions/checkout@v4
@@ -21,7 +20,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php }}
-        extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
+        extensions: dom, curl, libxml, mbstring, zip, pcntl, bcmath, soap, intl, gd, exif, iconv
         coverage: none
 
     - name: Setup Problem Matchers
@@ -35,38 +34,11 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ${{ steps.composer-cache.outputs.dir }}
-        key: composer-${{ matrix.php }}-${{ matrix.laravel }}-${{ hashFiles('composer.lock') }}
-        restore-keys: composer-${{ matrix.php }}-${{ matrix.laravel }}-
+        key: composer-${{ matrix.php }}-${{ hashFiles('composer.lock') }}
+        restore-keys: composer-${{ matrix.php }}-
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-suggest
 
-    - name: Create environment file
-      run: |
-        touch .env
-        echo "APP_NAME=Laravel" >> .env
-        echo "APP_ENV=testing" >> .env
-        echo "APP_KEY=" >> .env
-        echo "APP_DEBUG=true" >> .env
-        echo "APP_URL=http://localhost" >> .env
-        echo "DB_CONNECTION=sqlite" >> .env
-        echo "DB_DATABASE=database/database.sqlite" >> .env
-
-    - name: Generate application key
-      run: php artisan key:generate
-
-    - name: Create SQLite database
-      run: touch database/database.sqlite
-
-    - name: Run migrations
-      run: php artisan migrate --force
-
     - name: Execute tests
       run: ./vendor/bin/phpunit
-
-    - name: Upload coverage to Codecov
-      if: matrix.php == '8.3' && matrix.laravel == '12.*'
-      uses: codecov/codecov-action@v3
-      with:
-        file: ./coverage.xml
-        fail_ci_if_error: true
