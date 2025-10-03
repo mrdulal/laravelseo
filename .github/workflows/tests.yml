@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         php: [8.1, 8.2, 8.3]
-        laravel: [9.*, 10.*, 11.*]
+        laravel: [9.*, 10.*, 11.*, 12.*]
 
     steps:
     - uses: actions/checkout@v4
@@ -41,8 +41,16 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-suggest
 
-    - name: Copy environment file
-      run: cp .env.example .env
+    - name: Create environment file
+      run: |
+        touch .env
+        echo "APP_NAME=Laravel" >> .env
+        echo "APP_ENV=testing" >> .env
+        echo "APP_KEY=" >> .env
+        echo "APP_DEBUG=true" >> .env
+        echo "APP_URL=http://localhost" >> .env
+        echo "DB_CONNECTION=sqlite" >> .env
+        echo "DB_DATABASE=database/database.sqlite" >> .env
 
     - name: Generate application key
       run: php artisan key:generate
@@ -54,10 +62,10 @@ jobs:
       run: php artisan migrate --force
 
     - name: Execute tests
-      run: php artisan test
+      run: ./vendor/bin/phpunit
 
     - name: Upload coverage to Codecov
-      if: matrix.php == '8.3' && matrix.laravel == '11.*'
+      if: matrix.php == '8.3' && matrix.laravel == '12.*'
       uses: codecov/codecov-action@v3
       with:
         file: ./coverage.xml

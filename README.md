@@ -11,22 +11,22 @@ A comprehensive SEO toolkit for Laravel applications that provides meta tags, Op
 
 ## Features
 
-- 🏷️ **Meta Tags Management** - Title, description, keywords, author, robots
-- 📱 **Open Graph Support** - Complete Open Graph meta tags for social sharing
-- 🐦 **Twitter Cards** - Twitter Card meta tags for enhanced tweets
-- 📊 **JSON-LD Schema** - Structured data markup for search engines
-- 🔗 **Canonical URLs** - Prevent duplicate content issues
-- 🤖 **Robots.txt Generation** - Automatic robots.txt file generation
-- 🗺️ **XML Sitemap** - Dynamic XML sitemap generation
-- 🔍 **SEO Audit Middleware** - Real-time SEO issue detection
-- 📈 **SEO Dashboard** - Optional admin dashboard for SEO management
-- 🎨 **Blade Components** - Easy-to-use Blade components for templates
-- ⚡ **Artisan Commands** - Command-line tools for SEO management
-- 🗄️ **Database Integration** - Polymorphic SEO meta storage with HasSeo trait
-- ⚡ **Livewire Support** - Full Livewire compatibility with reactive components
-- 🎛️ **Filament Integration** - Complete Filament admin panel integration
-- 🔄 **Real-time Updates** - Live SEO management with instant previews
-- 📱 **Mobile Responsive** - Optimized for all device sizes
+- ![Meta Tags](https://img.shields.io/badge/Meta%20Tags-🏷️-0066CC?style=flat-square&logo=html5&logoColor=white) **Meta Tags Management** - Title, description, keywords, author, robots
+- ![Open Graph](https://img.shields.io/badge/Open%20Graph-📱-00B4DB?style=flat-square&logo=facebook&logoColor=white) **Open Graph Support** - Complete Open Graph meta tags for social sharing
+- ![Twitter Cards](https://img.shields.io/badge/Twitter%20Cards-🐦-1DA1F2?style=flat-square&logo=twitter&logoColor=white) **Twitter Cards** - Twitter Card meta tags for enhanced tweets
+- ![JSON-LD](https://img.shields.io/badge/JSON--LD-📊-FF6B35?style=flat-square&logo=json&logoColor=white) **JSON-LD Schema** - Structured data markup for search engines
+- ![Canonical URLs](https://img.shields.io/badge/Canonical%20URLs-🔗-8B5CF6?style=flat-square&logo=link&logoColor=white) **Canonical URLs** - Prevent duplicate content issues
+- ![Robots.txt](https://img.shields.io/badge/Robots.txt-🤖-EF4444?style=flat-square&logo=robot&logoColor=white) **Robots.txt Generation** - Automatic robots.txt file generation
+- ![XML Sitemap](https://img.shields.io/badge/XML%20Sitemap-🗺️-14B8A6?style=flat-square&logo=sitemap&logoColor=white) **XML Sitemap** - Dynamic XML sitemap generation
+- ![SEO Audit](https://img.shields.io/badge/SEO%20Audit-🔍-F59E0B?style=flat-square&logo=search&logoColor=white) **SEO Audit Middleware** - Real-time SEO issue detection
+- ![SEO Dashboard](https://img.shields.io/badge/SEO%20Dashboard-📈-6366F1?style=flat-square&logo=chart-bar&logoColor=white) **SEO Dashboard** - Optional admin dashboard for SEO management
+- ![Blade Components](https://img.shields.io/badge/Blade%20Components-🎨-EC4899?style=flat-square&logo=laravel&logoColor=white) **Blade Components** - Easy-to-use Blade components for templates
+- ![Artisan Commands](https://img.shields.io/badge/Artisan%20Commands-⚡-F59E0B?style=flat-square&logo=terminal&logoColor=white) **Artisan Commands** - Command-line tools for SEO management
+- ![Database Integration](https://img.shields.io/badge/Database%20Integration-🗄️-6B7280?style=flat-square&logo=database&logoColor=white) **Database Integration** - Polymorphic SEO meta storage with HasSeo trait
+- ![Livewire Support](https://img.shields.io/badge/Livewire%20Support-⚡-FF2D20?style=flat-square&logo=livewire&logoColor=white) **Livewire Support** - Full Livewire compatibility with reactive components
+- ![Filament Integration](https://img.shields.io/badge/Filament%20Integration-🎛️-6366F1?style=flat-square&logo=filament&logoColor=white) **Filament Integration** - Complete Filament admin panel integration
+- ![Real-time Updates](https://img.shields.io/badge/Real--time%20Updates-🔄-10B981?style=flat-square&logo=refresh&logoColor=white) **Real-time Updates** - Live SEO management with instant previews
+- ![Mobile Responsive](https://img.shields.io/badge/Mobile%20Responsive-📱-8B5CF6?style=flat-square&logo=mobile&logoColor=white) **Mobile Responsive** - Optimized for all device sizes
 
 ## Installation
 
