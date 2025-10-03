@@ -23,6 +23,46 @@ A comprehensive SEO toolkit for Laravel applications that provides meta tags, Op
 
 ## Installation
 
+### Quick Installation (Recommended)
+
+Use the interactive installation command to choose your preferred integration:
+
+```bash
+composer require laravel-seo-pro/seo-pro
+php artisan seo:install
+```
+
+The installer will guide you through selecting your integration method:
+- **Blade Components Only** - Lightweight, no additional dependencies
+- **Livewire Integration** - Reactive components with real-time updates
+- **Filament Integration** - Admin panel with advanced management
+- **Full Integration** - Livewire + Filament + Blade components
+
+### Installation Options
+
+You can also specify your preferred integration directly:
+
+```bash
+# Blade components only (lightweight)
+php artisan seo:install --blade-only
+
+# With Livewire integration
+php artisan seo:install --livewire
+
+# With Filament integration
+php artisan seo:install --filament
+
+# Skip creating example files
+php artisan seo:install --no-examples
+
+# Force installation without prompts
+php artisan seo:install --force --livewire
+```
+
+### Manual Installation
+
+If you prefer manual installation:
+
 1. Install the package via Composer:
 
 ```bash
@@ -46,6 +86,16 @@ php artisan migrate
 
 ```bash
 php artisan vendor:publish --provider="LaravelSeoPro\SeoProServiceProvider" --tag="seo-views"
+```
+
+5. (Optional) Install additional dependencies:
+
+```bash
+# For Livewire support
+composer require livewire/livewire
+
+# For Filament support
+composer require filament/filament
 ```
 
 ## Configuration

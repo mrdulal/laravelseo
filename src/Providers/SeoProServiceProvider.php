@@ -10,6 +10,7 @@ use LaravelSeoPro\Console\Commands\GenerateRobotsCommand;
 use LaravelSeoPro\Console\Commands\GenerateSitemapCommand;
 use LaravelSeoPro\Console\Commands\AttachSeoCommand;
 use LaravelSeoPro\Console\Commands\SeoAuditCommand;
+use LaravelSeoPro\Console\Commands\InstallSeoProCommand;
 use LaravelSeoPro\Livewire\SeoManager;
 use LaravelSeoPro\Livewire\Fields\SeoFields;
 use LaravelSeoPro\Filament\Resources\SeoMetaResource;
@@ -54,6 +55,7 @@ class SeoProServiceProvider extends ServiceProvider
         // Register commands
         if ($this->app->runningInConsole()) {
             $this->commands([
+                InstallSeoProCommand::class,
                 GenerateRobotsCommand::class,
                 GenerateSitemapCommand::class,
                 AttachSeoCommand::class,
